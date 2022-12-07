@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<!--<h2>Register</h2>-->
+
+<ul class="nav justify-content-center">
+
+    <form action="{{ url_for('register') }}" method=post>
+        <div class="form-group">
+            {% if error %}
+            <p class=error><strong>Error:</strong> {{ error }}
+                {% endif %}
+        </div>
+        <div class="form-group">
+            <label>Username</label>
+            <input class="form-control" type=text size=30 name="username"
+                   placeholder="input your username">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input class="form-control" type=password size=30 name="password"
+                   placeholder="input your password">
+        </div>
+        <ul class="nav justify-content-center mb-2 p-2">
+            <button type="submit" class="btn btn-success" value=Register>Register</button>
+        </ul>
+        <!--<dl>-->
+        <!--<dt>Username:-->
+        <!--<dd><input type=text name=username>-->
+        <!--<dt>Password:-->
+        <!--<dd><input type=password name=password>-->
+        <!--<dd><input type=submit value=Register>-->
+        <!--</dl>-->
+    </form>
+
+</ul>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+<ul class=cv>
+
+{% for entry in entries %}
+    <h1>Name:</h1> {{ entry.title|safe }}
+    <h1>Contact:</h1> {{ entry.contact|safe }}
+    <h1>Education:</h1> {{ entry.education|safe }}
+    <h1>Skills:</h1> {{ entry.skills|safe }}
+    <h1>Description:</h1> {{ entry.description|safe }}
+{% else %}
+    <h1>No CV</h1>
+{% endfor %}
+
+</ul>
