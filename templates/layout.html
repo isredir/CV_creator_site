@@ -1,13 +1,33 @@
 <!doctype html>
+<html lang="en">
+
 <title>CV Creator</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+
 <div class=page>
-<h1>Twitter</h1>
-<div class=metanav>
-{% if not session.logged_in %}
-<a href="{{ url_for('login') }}">log in</a> {% else %}
-<a href="{{ url_for('register') }}">log in</a> {% else %}
-<a href="{{ url_for('logout') }}">log out</a> {% endif %}
+    <h1 class="text-center">CV Builder</h1>
+
+    <ul class="nav justify-content-center">
+
+        {% if not session.logged_in %}
+        <li class="nav-item">
+            <a href="{{ url_for('login') }}" class="nav-link active">log in</a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('register') }}" class="nav-link active">register</a> {% else %}
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('logout') }}" class="nav-link active">log out</a> {% endif %}
+        </li>
+
+    </ul>
+
+    {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+    {% endfor %}
+
+    {% block body %}{% endblock %}
+
 </div>
-{% block body %}{% endblock %}
-</div>
+
+</html>
