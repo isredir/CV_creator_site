@@ -1,14 +1,97 @@
 {% extends "layout.html" %} {% block body %}
-{% if session.logged_in %}
-<form action="{{ url_for('add_entry') }}" method=post class=add-entry> <dl>
-<dt>Title:
-<dd><input type=text size=30 name=title>
-<dt>Text:
-<dd><textarea name=text rows=5 cols=40></textarea> <dd><input type=submit value=Share>
-</dl> </form> {% endif %}
+
 <ul class=entries>
-{% for entry in entries %}
-<li><h2>{{ entry.title }}</h2>{{ entry.text|safe }} {% else %}
-<li><em>Unbelievable. No entries here so far</em> {% endfor %}
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <form action="{{ url_for('cv_helper') }}" method=post class=cv_helper>
+                <button type="submit" class="btn btn-primary m-1">Show CV</button>
+            </form>
+            <form action="{{ url_for('pdf_helper') }}" method=post class=pdf_helper>
+                <button type="submit" class="btn btn-secondary m-1">Create pdf</button>
+            </form>
+        </div>
+    </div>
+    <ul class="d-flex justify-content-center">
+        <p class="font-weight-bold text-uppercase">To save your CV save it as a draft first</p>
+    </ul>
+
+    {% if entries %}
+    {% for entry in entries %}
+    {% if session.logged_in %}
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+        <div class="form-group m-1">
+            <label>Your name</label>
+            <input class="form-control" type=text size=30 name="title" value="{{ entry.title }}"
+                   placeholder="input your name">
+        </div>
+        <div class="form-group m-1">
+            <label>Contact info</label>
+            <input class="form-control" type=text size=30 name="contact" value="{{ entry.contact }}"
+                   placeholder="phone number, email, etc">
+        </div>
+        <div class="form-group m-1">
+            <label>Education</label>
+            <input class="form-control" type=text size=30 name="education" value="{{ entry.education }}"
+                   placeholder="place of your education">
+        </div>
+        <div class="form-group m-1">
+            <label>Skills</label>
+            <input class="form-control" type=text size=30 name="skills" value="{{ entry.skills }}"
+                   placeholder="some of your skills">
+        </div>
+        <div class="form-group m-1">
+            <label>CV's description</label>
+            <input class="form-control" type=text size=30 name="description" value="{{ entry.description|safe }}"
+                   placeholder="CV's description">
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success m-1">Save Draft</button>
+        </div>
+    </form>
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% if session.logged_in %}
+    <ul class="nav justify-content-center">
+        <div class="form-group">
+            {% if error %}
+            <p class=error><strong>Error:</strong> {{ error }}
+                {% endif %}
+        </div>
+    </ul>
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+        <div class="form-group m-1">
+            <label>Your name</label>
+            <input class="form-control" type=text size=30 name="title"
+                   placeholder="input your name">
+        </div>
+        <div class="form-group m-1">
+            <label>Contact info</label>
+            <input class="form-control" type=text size=30 name="contact"
+                   placeholder="phone number, email, etc">
+        </div>
+        <div class="form-group m-1">
+            <label>Education</label>
+            <input class="form-control" type=text size=30 name="education"
+                   placeholder="place of your education">
+        </div>
+        <div class="form-group m-1">
+            <label>Skills</label>
+            <input class="form-control" type=text size=30 name="skills"
+                   placeholder="some of your skills">
+        </div>
+        <div class="form-group m-1">
+            <label>CV's description</label>
+            <input class="form-control" type=text size=30 name="description"
+                   placeholder="CV's description">
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success m-1">Save Draft</button>
+        </div>
+    </form>
+    {% endif %}
+    {% endif %}
+
 </ul>
+
 {% endblock %}
