@@ -1,10 +1,33 @@
-{% extends "layout.html" %} {% block body %}
-<h2>Login</h2>
-{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-    <form action="{{ url_for('login') }}" method=post>
-<dl>
-<dt>Username:
-<dd><input type=text name=username> <dt>Password:
-<dd><input type=password name=password> <dd><input type=submit value=Login>
-</dl> </form>
-{% endblock %}
+<!doctype html>
+<html lang="en">
+
+<title>CV Builder</title>
+
+
+<div class=page>
+    <h1 class="text-center">CV Builder</h1>
+
+    <ul class="nav justify-content-center">
+
+        {% if not session.logged_in %}
+        <li class="nav-item">
+            <a href="{{ url_for('login') }}" class="nav-link active">log in</a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('register') }}" class="nav-link active">register</a> {% else %}
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('logout') }}" class="nav-link active">log out</a> {% endif %}
+        </li>
+
+    </ul>
+
+    {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+    {% endfor %}
+
+    {% block body %}{% endblock %}
+
+</div>
+
+</html>
